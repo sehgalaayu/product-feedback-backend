@@ -2,7 +2,10 @@ import mongoose = require("mongoose");
 
 export const connectDb = async () => {
   try {
+    // In your code, you were getting the database URL from the environment variable process.env.MONGO_URL.
     const mongoURL = process.env.MONGO_URL;
+    // But TypeScript says: "Hey, this variable might be empty or undefined,
+    // but the mongoose.connect function needs a real string." So, before using mongoURL, you should check if it has a value. If it doesn't, show an error message.
     if (!mongoURL) {
       throw new Error("MONGO_URL environment variable is not defined");
     }
