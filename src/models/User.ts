@@ -37,7 +37,7 @@ userSchema.pre("save", async function (next) {
     this.password = await bcrypt.hash(this.password, 10);
     next();
   } catch (error) {
-    next(error as Error); // The "as" keyword tells the TypeScript compiler: "Treat the variable error as the type Error, no matter what else the compiler thinks."
+    next(error : Error); // The "as" keyword tells the TypeScript compiler: "Treat the variable error as the type Error, no matter what else the compiler thinks."
   }
 });
 
