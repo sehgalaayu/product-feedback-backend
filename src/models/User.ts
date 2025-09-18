@@ -30,6 +30,7 @@ const userSchema = new Schema<User>(
   }
 );
 
+//mongoose pre hook middleware
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   try {
@@ -39,3 +40,10 @@ userSchema.pre("save", async function (next) {
     next(error as Error); // The "as" keyword tells the TypeScript compiler: "Treat the variable error as the type Error, no matter what else the compiler thinks."
   }
 });
+
+userSchema.methods.checkPassword = async function (inputPwd: string) {
+  return await bcrypt.compare(inputPwd, this.password);
+};
+
+const User = model<User>("User", userSchema);
+export default User;
