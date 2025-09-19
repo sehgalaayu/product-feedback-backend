@@ -1,5 +1,4 @@
-import mongoose, { model, Model, Schema, Types } from "mongoose";
-import { required } from "zod/mini";
+import { model, Schema, Types } from "mongoose";
 
 interface Vote {
   user: Types.ObjectId;
