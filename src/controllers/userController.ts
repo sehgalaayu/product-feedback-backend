@@ -29,13 +29,18 @@ export const userController = {
     try {
       const { email, password } = req.body;
       const user = await User.findOne({ email });
-      if (!user || !(await bcrypt.compare(password, user.password))) {
-        res.status(400).json({ message: "Invalid Credentials" });
+      if (!user || !(await (user as any).checkPassword(password))) {
+        return res.status(400).json({ message: "Invalid Credentials" });
       }
+
       //Create Token
       const token = jwt.sign({ userId: user._id }, "aayu-key", {
         expiresIn: "24h",
       });
-    } catch (error) {}
+      res.json({ message: "Login Sucessful" });
+    } catch (error) {
+      console.error("Login failed", error);
+      res.status(400).json({ message: "Server Error" });
+    }
   },
 };
