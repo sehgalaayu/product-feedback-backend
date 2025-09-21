@@ -26,6 +26,6 @@ export const connectDb = async () => {
     await mongoose.connect(mongoURL);
     console.log(`Mongo connection successful`);
   } catch (error) {
-    console.error("mongo connection unsuccessful");
+    console.error("mongo connection unsuccessful", error);
   }
 };
